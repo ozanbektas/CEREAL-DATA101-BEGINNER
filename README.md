@@ -3,10 +3,10 @@ BEGINNER PROJECT ABOUT CEREAL
 
 # kutuphaneleri alalım
 
-1-import pandas as pd
-2-import seaborn as sns
-3-import matplotlib.pyplot as plt
-4-%matplotlib inline  
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline  
 
 # okutuyorum
 df = pd.read_csv('C:/Users/ozann/OneDrive/Masaüstü/databank/data101  proje/cereal.csv')
