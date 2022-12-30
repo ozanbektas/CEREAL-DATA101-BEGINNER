@@ -30,4 +30,5 @@ df['rating']
 
 sns.set_palette("summer") #outlierı yakalamak için veriyi görselleştiriyorum.Bu yüzden grafik rengi olarak summerı seçtim.
 
-sns.distplot(Rating).set_title('Distribution of ratings for cereal') # Outlier veriyi görebilmek için grafiğe döktüğümüz kod buradadır.Herhangi bir null değeri olmadığı için burada bırakıyorum.
+sns.distplot(Rating).set_title('Distribution of ratings for cereal')
+# Outlier veriyi görebilmek için grafiğe döktüğümüz kod buradadır.Herhangi bir null değeri olmadığı için burada bırakıyorum.
