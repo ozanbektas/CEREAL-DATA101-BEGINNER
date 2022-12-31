@@ -1,34 +1,62 @@
-# CEREAL-DATA101-BEGINNER
-BEGINNER PROJECT ABOUT CEREAL 
-
-# kutuphaneleri alalım
-
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-%matplotlib inline  
+import numpy as np
 
-# okutuyorum
-df = pd.read_csv('C:/Users/ozann/OneDrive/Masaüstü/databank/data101  proje/cereal.csv')
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
-df.head() # dataları görselleştirdim
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 
-df.info() # null değer varmı bakıyorum
+import pandas as np
+import numpy as np
 
-# her bir gevrek markasının besin değerlerini histogramlara yazdıralım
-df.hist(bins=50,figsize=(20,15))
-plt.show()
+import math
 
-print(df[0:5])
+emp_data = pd.read_csv('C:/Users/ozann/OneDrive/Masaüstü/databank/data101  proje/cereal.csv', low_memory= False)
 
-df.isnull().sum() # Data setimizde null değer olup olmadığını görelim.Bu işlem veri temizleme aşaması için önemli.
+def copy_df(df):
+    df = df.copy()
+    
+    return df
+    
+data = copy_df(emp_data)
 
-# null değer olmadığını gördük,cereal markalarından ratinglere bakıp büyük bi outlier olup olmadığına bakalım
+data.info()
 
-Rating = df['rating']
-df['rating']
+df.type.astype('category').cat.codes
 
-sns.set_palette("summer") #outlierı yakalamak için veriyi görselleştiriyorum.Bu yüzden grafik rengi olarak summerı seçtim.
+#there is no null value
 
-sns.distplot(Rating).set_title('Distribution of ratings for cereal')
-# Outlier veriyi görebilmek için grafiğe döktüğümüz kod buradadır.Herhangi bir null değeri olmadığı için burada bırakıyorum.
+df['type'] = df['type'].replace({'C': 0, 'H': 1})
+
+y = df['rating']
+x = df.drop('rating', axis=1)
+
+# Splitting train and test
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, shuffle=True, random_state=2)
+
+# Scale x
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train = pd.DataFrame(scaler.transform(x_train), index=x_train.index, columns=x_train.columns)
+x_test = pd.DataFrame(scaler.transform(x_test), index=x_test.index, columns=x_test.columns)
+
+
+x_train
+
+
+x_test
+
+
+models = {
+"         Linear Regression" : LinearRegression(),
+"         Random Forest    " : RandomForestRegressor()
+}
+
+for name, model in models.items():
+    model.fit(x_train, y_train)
+    
+    
+for name, model in models.items():
+    print(name + " R^2 Score: {:.5f}".format(model.score(x_test, y_test)))
+   
